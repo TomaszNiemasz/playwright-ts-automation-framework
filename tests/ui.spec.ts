@@ -1,24 +1,20 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage'; // Importujemy nasz Page Object
 
-test.describe('UI Automation Tests', () => {
+test.describe('UI Automation Tests with POM', () => {
 
-  test('should login successfully with standard user', async ({ page }) => {
-    // 1. Wejdź na stronę logowania SauceDemo
-    await page.goto('https://www.saucedemo.com/');
+  test('should login successfully using Page Object Model', async ({ page }) => {
+    // 1. Inicjalizacja klasy strony logowania
+    const loginPage = new LoginPage(page);
 
-    // 2. Wpisz login (standardowy user z platformy testowej)
-    await page.fill('#user-name', 'standard_user');
+    // 2. Otworzenie strony przez metodę z POM
+    await loginPage.goto();
 
-    // 3. Wpisz hasło
-    await page.fill('#password', 'secret_sauce');
+    // 3. Zalogowanie się przy użyciu metody biznesowej
+    await loginPage.login('standard_user', 'secret_sauce');
 
-    // 4. Kliknij przycisk Login
-    await page.click('#login-button');
-
-    // 5. Sprawdzimy, czy zalogowało nas poprawnie (np. czy URL zmienił się na podstronę inventory)
+    // 4. Asercje sprawdzające poprawność logowania
     await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
-
-    // 6. Sprawdzimy, czy widoczny jest nagłówek z produktami (ikonka koszyka)
     await expect(page.locator('.shopping_cart_link')).toBeVisible();
   });
 
