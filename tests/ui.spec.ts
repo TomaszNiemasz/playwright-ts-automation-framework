@@ -15,6 +15,11 @@ test.describe('SauceDemo E2E Purchase Flow with POM', () => {
 
     // 2. Proces logowania
     await loginPage.goto();
+
+    // Pobranie danych z pliku .env
+    const username = process.env.STANDARD_USER || '';
+    const password = process.env.STANDARD_PASS || '';
+
     await loginPage.login('standard_user', 'secret_sauce');
     await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
 
