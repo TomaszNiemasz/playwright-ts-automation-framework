@@ -6,7 +6,7 @@ export class CartPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.checkoutButton = page.locator('#checkout');
+    this.checkoutButton = page.getByTestId('checkout');
   }
 
   // Przejście do formularza zamówienia

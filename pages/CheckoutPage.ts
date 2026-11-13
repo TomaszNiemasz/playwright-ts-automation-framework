@@ -8,23 +8,29 @@ export class CheckoutPage {
   readonly continueButton: Locator;
   readonly finishButton: Locator;
   readonly successHeader: Locator;
+  readonly errorMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.firstNameInput = page.locator('#first-name');
-    this.lastNameInput = page.locator('#last-name');
-    this.postalCodeInput = page.locator('#postal-code');
-    this.continueButton = page.locator('#continue');
-    this.finishButton = page.locator('#finish');
-    this.successHeader = page.locator('.complete-header');
+    this.firstNameInput = page.getByTestId('firstName');
+    this.lastNameInput = page.getByTestId('lastName');
+    this.postalCodeInput = page.getByTestId('postalCode');
+    this.continueButton = page.getByTestId('continue');
+    this.finishButton = page.getByTestId('finish');
+    this.successHeader = page.getByTestId('complete-header');
+    this.errorMessage = page.getByTestId('error');
+  }
+  // Przejście do kolejnego kroku formularza
+  async clickContinue() {
+    await this.continueButton.click();
   }
 
-  // Wypełnienie danych adresowych i kliknięcie Continue
+  // Wypełnienie danych adresowych i przejście dalej
   async fillShippingDetails(firstName: string, lastName: string, postalCode: string) {
     await this.firstNameInput.fill(firstName);
     await this.lastNameInput.fill(lastName);
     await this.postalCodeInput.fill(postalCode);
-    await this.continueButton.click();
+    await this.clickContinue();
   }
 
   // Sfinalizowanie zamówienia (Finish)

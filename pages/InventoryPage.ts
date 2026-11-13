@@ -8,13 +8,13 @@ export class InventoryPage {
   constructor(page: Page) {
     this.page = page;
     // Lokator do przycisku dodania plecaka do koszyka
-    this.addToCartBackpackButton = page.locator('#add-to-cart-sauce-labs-backpack');
+    this.addToCartBackpackButton = page.getByTestId('add-to-cart-sauce-labs-backpack');
     // Ikona koszyka
-    this.shoppingCartLink = page.locator('.shopping_cart_link');
+    this.shoppingCartLink = page.getByTestId('shopping-cart-link');
   }
 
-  // Metoda dodająca produkt do koszyka
-  async addBackpackToCart() {
+  // Dodanie produktu do koszyka
+  async addFirstProductToCart() {
     await this.addToCartBackpackButton.click();
   }
 

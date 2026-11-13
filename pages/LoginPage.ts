@@ -8,18 +8,18 @@ export class LoginPage {
 
   constructor(page: Page) {
     this.page = page;
-    // Definiujemy lokatory elementów na stronie logowania
-    this.usernameInput = page.locator('#user-name');
-    this.passwordInput = page.locator('#password');
-    this.loginButton = page.locator('#login-button');
+    // Definicja lokatorów elementów na stronie logowania
+    this.usernameInput = page.getByTestId('username');
+    this.passwordInput = page.getByTestId('password');
+    this.loginButton = page.getByTestId('login-button');
   }
 
-  // Metoda otwiera stronę logowania
+  // Przejście na stronę logowania
   async goto() {
     await this.page.goto('https://www.saucedemo.com/');
   }
 
-  // Metoda wykonująca pełny proces logowania
+  // Logowanie
   async login(username: string, pass: string) {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(pass);
