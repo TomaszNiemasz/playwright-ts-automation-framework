@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { bookingSchema, createBookingResponseSchema } from '../schemas/booking.schema';
 
 const API_BASE_URL = 'https://restful-booker.herokuapp.com';
 
 test.describe('Restful-Booker API CRUD Tests', () => {
-  let bookingId: number;
   let token: string;
 
   // Autoryzacja - pobranie tokena przed testami modyfikacji
@@ -39,17 +39,18 @@ test.describe('Restful-Booker API CRUD Tests', () => {
     expect(response.status()).toBe(200);
     const body = await response.json();
     
-    // Zapisanie ID nowo utworzonej rezerwacji do zmiennej globalnej testu
-    bookingId = body.bookingid;
-    expect(bookingId).toBeDefined();
+    // Walidacja zod
+    const validationResult = createBookingResponseSchema.safeParse(body);
+    expect(validationResult.success).toBe(true);
+
+    // Asercje biznesowe
+    expect(body.bookingid).toBeDefined();
     expect(body.booking.firstname).toBe('Jan');
   });
 
   // READ (GET) - Pobieranie rezerwacji po ID
   test('should get the created booking by id', async ({ request }) => {
-    // Upewniamy się, że poprzedni test przekazał ID (lub hardkodujemy fallback do testów niezależnych)
-    // W Playwright najlepiej testy pisać niezależnie, więc możemy stworzyć rezerwację wewnątrz testu lub użyć przed chwilą utworzonej.
-    // Dla demonstracji zróbmy szybkie utworzenie w teście:
+    // Stworzenie rezerwacji do pobrania zamiast przekazania ID z poprzedniego testu dla niezalezności testów
     const createRes = await request.post(`${API_BASE_URL}/booking`, {
       data: {
         firstname: 'Anna',
@@ -68,6 +69,12 @@ test.describe('Restful-Booker API CRUD Tests', () => {
     const response = await request.get(`${API_BASE_URL}/booking/${id}`);
     expect(response.status()).toBe(200);
     const body = await response.json();
+
+    // Walidacja zod
+    const validationResult = bookingSchema.safeParse(body);
+    expect(validationResult.success).toBe(true);
+
+    //Asercje biznesowe
     expect(body.firstname).toBe('Anna');
   });
 
@@ -139,6 +146,12 @@ test.describe('Restful-Booker API CRUD Tests', () => {
     // Weryfikacja zmian
     expect(updateRes.status()).toBe(200);
     const updatedBody = await updateRes.json();
+
+    // Walidacja zod
+    const validationResult = bookingSchema.safeParse(updatedBody);
+    expect(validationResult.success).toBe(true);
+
+    //Asercje biznesowe
     expect(updatedBody.lastname).toBe('Nowak');
     expect(updatedBody.totalprice).toBe(300);
     expect(updatedBody.additionalneeds).toBe('Extra Pillow');
