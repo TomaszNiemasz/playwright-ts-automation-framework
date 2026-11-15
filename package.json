@@ -1,19 +1,24 @@
 {
-  "name": "qa-portfolio",
+  "name": "playwright-ts-automation-framework",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
+  "description": "Test automation framework: Playwright + TypeScript UI tests (SauceDemo) and API tests (Restful-Booker)",
+  "private": true,
   "license": "ISC",
   "type": "commonjs",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --project=ui",
+    "test:api": "playwright test --project=api",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:headed": "playwright test --project=ui --headed",
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit"
+  },
   "devDependencies": {
     "@playwright/test": "^1.65.0",
     "@types/node": "^26.6.6",
-    "dotenv": "^18.0.10"
-  },
-  "dependencies": {
+    "dotenv": "^18.0.10",
+    "typescript": "^5.9.3",
     "zod": "^4.6.7"
   }
 }
