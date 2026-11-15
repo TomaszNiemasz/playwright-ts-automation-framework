@@ -1,25 +1,33 @@
-import { Page, Locator } from '@playwright/test';
+import type { Page, Locator } from '@playwright/test';
 
 export class InventoryPage {
   readonly page: Page;
-  readonly addToCartBackpackButton: Locator;
-  readonly shoppingCartLink: Locator;
+  readonly title: Locator;
+  readonly cartLink: Locator;
+  readonly cartBadge: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    // Lokator do przycisku dodania plecaka do koszyka
-    this.addToCartBackpackButton = page.getByTestId('add-to-cart-sauce-labs-backpack');
-    // Ikona koszyka
-    this.shoppingCartLink = page.getByTestId('shopping-cart-link');
+    this.title = page.getByTestId('title');
+    this.cartLink = page.getByTestId('shopping-cart-link');
+    this.cartBadge = page.getByTestId('shopping-cart-badge');
   }
 
-  // Dodanie produktu do koszyka
-  async addFirstProductToCart() {
-    await this.addToCartBackpackButton.click();
+  /** The card of one product, found by its visible name. */
+  private product(name: string): Locator {
+    return this.page.getByTestId('inventory-item').filter({ hasText: name });
   }
 
-  // Przejście do koszyka
+  async addToCart(productName: string) {
+    await this.product(productName).getByRole('button', { name: 'Add to cart'}).click();
+  }
+
+  /** Price exactly as displayed, e.g. "$29.99". */
+  async getProductPrice(productName: string): Promise<string> {
+    return this.product(productName).getByTestId('inventory-item-price').innerText();
+  }
+
   async goToCart() {
-    await this.shoppingCartLink.click();
+    await this.cartLink.click();
   }
 }
