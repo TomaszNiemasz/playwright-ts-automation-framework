@@ -1,8 +1,5 @@
-import type { APIRequestContext, APIResponse } from "@playwright/test";
-import {
-  createBookingResponseSchema,
-  type Booking,
-} from "../schemas/booking.schema";
+import type { APIRequestContext, APIResponse } from '@playwright/test';
+import { createBookingResponseSchema, type Booking } from '../schemas/booking.schema';
 
 type RequestOptions = {
   /** Set to false to send the request without any auth token (for negative tests). */
@@ -29,7 +26,7 @@ export class BookingClient {
 
   // Builds headers, by default sends a token that can be replaced in negative tests
   private headers(options: RequestOptions = {}): Record<string, string> {
-    const headers: Record<string, string> = { Accept: "application/json" };
+    const headers: Record<string, string> = { Accept: 'application/json' };
     if (options.auth !== false) {
       headers.Cookie = `token=${options.token ?? this.token}`;
     }
@@ -38,10 +35,10 @@ export class BookingClient {
 
   // Creates a booking, intentionally accepts an object so that incomplete data can be provided in a negative test
   async create(payload: object): Promise<APIResponse> {
-    const response = await this.request.post("/booking", { data: payload });
+    const response = await this.request.post('/booking', { data: payload });
     if (response.ok()) {
       const body = await response.json().catch(() => undefined);
-      if (typeof body?.bookingid === "number") {
+      if (typeof body?.bookingid === 'number') {
         this.createdIds.push(body.bookingid);
       }
     }
@@ -49,14 +46,10 @@ export class BookingClient {
   }
 
   /** Arrange-step helper: creates a booking and returns its id. Throws if the setup fails. */
-  async createBooking(
-    payload: Booking,
-  ): Promise<{ id: number; booking: Booking }> {
+  async createBooking(payload: Booking): Promise<{ id: number; booking: Booking }> {
     const response = await this.create(payload);
     if (!response.ok()) {
-      throw new Error(
-        `Test setup failed: POST /booking returned ${response.status()}`,
-      );
+      throw new Error(`Test setup failed: POST /booking returned ${response.status()}`);
     }
     const body = createBookingResponseSchema.parse(await response.json());
     return { id: body.bookingid, booking: body.booking };
@@ -66,11 +59,7 @@ export class BookingClient {
     return this.request.get(`/booking/${id}`);
   }
 
-  update(
-    id: number,
-    payload: Booking,
-    options?: RequestOptions,
-  ): Promise<APIResponse> {
+  update(id: number, payload: Booking, options?: RequestOptions): Promise<APIResponse> {
     return this.request.put(`/booking/${id}`, {
       data: payload,
       headers: this.headers(options),

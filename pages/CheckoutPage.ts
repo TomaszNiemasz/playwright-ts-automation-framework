@@ -1,5 +1,5 @@
-import type { Page, Locator } from "@playwright/test";
-import type { Customer } from "../test-data/customer";
+import type { Page, Locator } from '@playwright/test';
+import type { Customer } from '../test-data/customer';
 
 export class CheckoutPage {
   readonly page: Page;
@@ -11,11 +11,11 @@ export class CheckoutPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.firstNameInput = page.getByTestId("firstName");
-    this.lastNameInput = page.getByTestId("lastName");
-    this.postalCodeInput = page.getByTestId("postalCode");
-    this.continueButton = page.getByTestId("continue");
-    this.errorMessage = page.getByTestId("error");
+    this.firstNameInput = page.getByTestId('firstName');
+    this.lastNameInput = page.getByTestId('lastName');
+    this.postalCodeInput = page.getByTestId('postalCode');
+    this.continueButton = page.getByTestId('continue');
+    this.errorMessage = page.getByTestId('error');
   }
 
   /** Fills the form and clicks Continue. Empty strings are allowed on purpose (validation tests). */

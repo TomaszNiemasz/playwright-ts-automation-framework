@@ -21,17 +21,17 @@ npm test
 
 ## Useful commands
 
-| Command              | What it does                                   |
-| -------------------- | ---------------------------------------------- |
-| `npm test`           | Run all UI and API tests                       |
-| `npm run test:ui`    | Run only UI tests                              |
-| `npm run test:api`   | Run only API tests                             |
-| `npm run test:smoke` | Run the fast critical-path tests (`@smoke`)    |
-| `npm run test:headed`| Run UI tests with a visible browser            |
-| `npm run report`     | Open the last HTML report                      |
-| `npm run typecheck`  | Check TypeScript types                         |
-| `npm run lint`       | Run ESLint                                     |
-| `npm run format`     | Format code with Prettier                      |
+| Command               | What it does                                |
+| --------------------- | ------------------------------------------- |
+| `npm test`            | Run all UI and API tests                    |
+| `npm run test:ui`     | Run only UI tests                           |
+| `npm run test:api`    | Run only API tests                          |
+| `npm run test:smoke`  | Run the fast critical-path tests (`@smoke`) |
+| `npm run test:headed` | Run UI tests with a visible browser         |
+| `npm run report`      | Open the last HTML report                   |
+| `npm run typecheck`   | Check TypeScript types                      |
+| `npm run lint`        | Run ESLint                                  |
+| `npm run format`      | Format code with Prettier                   |
 
 ## Project structure
 

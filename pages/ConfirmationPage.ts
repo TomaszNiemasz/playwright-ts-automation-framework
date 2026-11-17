@@ -1,4 +1,4 @@
-import type { Locator, Page } from "@playwright/test";
+import type { Locator, Page } from '@playwright/test';
 
 /** "Thank you for your order" page. */
 export class ConfirmationPage {
@@ -7,6 +7,6 @@ export class ConfirmationPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.header = page.getByTestId("complete-header");
+    this.header = page.getByTestId('complete-header');
   }
 }

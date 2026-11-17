@@ -1,4 +1,4 @@
-import type { Locator, Page } from "@playwright/test";
+import type { Locator, Page } from '@playwright/test';
 
 export class OverviewPage {
   readonly page: Page;
@@ -8,9 +8,9 @@ export class OverviewPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.itemNames = page.getByTestId("inventory-item-name");
-    this.subtotal = page.getByTestId("subtotal-label");
-    this.finishButton = page.getByTestId("finish");
+    this.itemNames = page.getByTestId('inventory-item-name');
+    this.subtotal = page.getByTestId('subtotal-label');
+    this.finishButton = page.getByTestId('finish');
   }
 
   async finish() {
