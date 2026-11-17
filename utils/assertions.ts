@@ -1,5 +1,5 @@
-import { expect } from '@playwright/test';
-import { z } from 'zod';
+import { expect } from "@playwright/test";
+import { z } from "zod";
 
 /**
  * Asserts that `data` matches a Zod schema.
@@ -9,5 +9,8 @@ import { z } from 'zod';
 export function expectToMatchSchema(schema: z.ZodType, data: unknown): void {
   const result = schema.safeParse(data);
   // Przy porazce powie ktore pole i dlaczego jest zle
-  expect(result.success, result.success ? undefined : z.prettifyError(result.error)).toBe(true);
+  expect(
+    result.success,
+    result.success ? undefined : z.prettifyError(result.error),
+  ).toBe(true);
 }

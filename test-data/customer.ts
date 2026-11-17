@@ -5,7 +5,7 @@ export type Customer = {
 };
 
 export const validCustomer: Customer = {
-  firstName: 'Jan',
-  lastName: 'Kowalski',
-  postalCode: '00-001',
+  firstName: "Jan",
+  lastName: "Kowalski",
+  postalCode: "00-001",
 };

@@ -1,8 +1,8 @@
-import { defineConfig, devices } from '@playwright/test';
-import { env } from './config/env';
+import { defineConfig, devices } from "@playwright/test";
+import { env } from "./config/env";
 
 export default defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if accidentally left test.only in the source code. */
@@ -13,36 +13,36 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. */
   reporter: process.env.CI
-    ? [['github'], ['html', { open: 'never' }]]
-    : [['list'], ['html', { open: 'never' }]],
+    ? [["github"], ["html", { open: "never" }]]
+    : [["list"], ["html", { open: "never" }]],
 
   /* Shared settings for all the projects below. */
   use: {
     // SauceDemo uses `data-test` instead of Playwright's default `data-testid`.
-    testIdAttribute: 'data-test',
+    testIdAttribute: "data-test",
     /* Collect trace when retrying the failed test. */
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'ui',
-      testDir: './tests/ui',
+      name: "ui",
+      testDir: "./tests/ui",
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
         baseURL: env.uiBaseUrl,
         launchOptions: { slowMo: env.slowMo },
       },
     },
     {
       // API tests do not need a browser, so this project has no `devices` preset.
-      name: 'api',
-      testDir: './tests/api',
+      name: "api",
+      testDir: "./tests/api",
       use: {
         baseURL: env.apiBaseUrl,
-        extraHTTPHeaders: { Accept: 'application/json' },
+        extraHTTPHeaders: { Accept: "application/json" },
       },
     },
 

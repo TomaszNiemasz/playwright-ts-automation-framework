@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const bookingSchema = z.object({
   firstname: z.string(),
