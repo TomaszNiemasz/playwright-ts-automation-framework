@@ -10,9 +10,18 @@ const protectedOperations: {
   method: string;
   send: (client: BookingClient, id: number, options: NoAuth) => Promise<APIResponse>;
 }[] = [
-  { method: 'PUT', send: (client, id, options) => client.update(id, buildBooking(), options) },
-  { method: 'PATCH', send: (client, id, options) => client.partialUpdate(id, { firstname: 'Hacker' }, options) },
-  { method: 'DELETE', send: (client, id, options) => client.remove(id, options) },
+  {
+    method: 'PUT',
+    send: (client, id, options) => client.update(id, buildBooking(), options),
+  },
+  {
+    method: 'PATCH',
+    send: (client, id, options) => client.partialUpdate(id, { firstname: 'Hacker' }, options),
+  },
+  {
+    method: 'DELETE',
+    send: (client, id, options) => client.remove(id, options),
+  },
 ];
 
 test.describe('Bookings API - negative scenarios', () => {
@@ -29,7 +38,9 @@ test.describe('Bookings API - negative scenarios', () => {
   test('PUT /booking/:id with an invalid token is forbidden', async ({ bookingClient }) => {
     const { id } = await bookingClient.createBooking(buildBooking());
 
-    const response = await bookingClient.update(id, buildBooking(), { token: 'invalid-token' });
+    const response = await bookingClient.update(id, buildBooking(), {
+      token: 'invalid-token',
+    });
 
     expect(response.status()).toBe(403);
   });

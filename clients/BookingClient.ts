@@ -23,7 +23,7 @@ export class BookingClient {
     private readonly request: APIRequestContext,
     private readonly token: string,
   ) {}
-  
+
   // Builds headers, by default sends a token that can be replaced in negative tests
   private headers(options: RequestOptions = {}): Record<string, string> {
     const headers: Record<string, string> = { Accept: 'application/json' };
@@ -60,16 +60,28 @@ export class BookingClient {
   }
 
   update(id: number, payload: Booking, options?: RequestOptions): Promise<APIResponse> {
-    return this.request.put(`/booking/${id}`, { data: payload, headers: this.headers(options) });
+    return this.request.put(`/booking/${id}`, {
+      data: payload,
+      headers: this.headers(options),
+    });
   }
 
-  partialUpdate(id: number, payload: Partial<Booking>, options?: RequestOptions): Promise<APIResponse> {
-    return this.request.patch(`/booking/${id}`, { data: payload, headers: this.headers(options) });
+  partialUpdate(
+    id: number,
+    payload: Partial<Booking>,
+    options?: RequestOptions,
+  ): Promise<APIResponse> {
+    return this.request.patch(`/booking/${id}`, {
+      data: payload,
+      headers: this.headers(options),
+    });
   }
 
   // After deletion removes the ID from the saved list
   async remove(id: number, options?: RequestOptions): Promise<APIResponse> {
-    const response = await this.request.delete(`/booking/${id}`, { headers: this.headers(options) });
+    const response = await this.request.delete(`/booking/${id}`, {
+      headers: this.headers(options),
+    });
     if (response.ok()) {
       const index = this.createdIds.indexOf(id);
       if (index !== -1) this.createdIds.splice(index, 1);

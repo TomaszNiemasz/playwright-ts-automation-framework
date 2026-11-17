@@ -12,7 +12,7 @@ export class LoginPage {
     this.usernameInput = page.getByTestId('username');
     this.passwordInput = page.getByTestId('password');
     this.loginButton = page.getByTestId('login-button');
-    this. errorMessage = page.getByTestId('error');
+    this.errorMessage = page.getByTestId('error');
   }
 
   async goto() {

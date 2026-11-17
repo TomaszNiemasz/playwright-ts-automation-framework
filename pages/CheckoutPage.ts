@@ -17,7 +17,7 @@ export class CheckoutPage {
     this.continueButton = page.getByTestId('continue');
     this.errorMessage = page.getByTestId('error');
   }
- 
+
   /** Fills the form and clicks Continue. Empty strings are allowed on purpose (validation tests). */
   async fillShippingDetails(customer: Customer) {
     await this.firstNameInput.fill(customer.firstName);

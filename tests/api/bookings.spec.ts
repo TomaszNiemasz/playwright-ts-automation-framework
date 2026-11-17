@@ -52,7 +52,10 @@ test.describe('Bookings API - CRUD', () => {
     const original = buildBooking();
     const { id } = await bookingClient.createBooking(original);
 
-    const response = await bookingClient.partialUpdate(id, { firstname: 'Anna', lastname: 'Nowak' });
+    const response = await bookingClient.partialUpdate(id, {
+      firstname: 'Anna',
+      lastname: 'Nowak',
+    });
 
     expect(response.status()).toBe(200);
     const body = await response.json();

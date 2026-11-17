@@ -19,7 +19,7 @@ export class InventoryPage {
   }
 
   async addToCart(productName: string) {
-    await this.product(productName).getByRole('button', { name: 'Add to cart'}).click();
+    await this.product(productName).getByRole('button', { name: 'Add to cart' }).click();
   }
 
   /** Price exactly as displayed, e.g. "$29.99". */
